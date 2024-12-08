@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { Dialog } from '@headlessui/react';
-import { XMarkIcon, PaperAirplaneIcon } from '@heroicons/react/24/solid';
+import { XMarkIcon, PaperAirplaneIcon, ClipboardIcon } from '@heroicons/react/24/solid';
 import ReactMarkdown from 'react-markdown';
 import 'highlight.js/styles/github-dark.css';
 
@@ -148,13 +148,13 @@ const ChatModal = ({ isOpen, onClose, prompt }) => {
     }
   };
 
-  const handleCopyResponse = useCallback(() => {
-    if (aiResponse) {
-      navigator.clipboard.writeText(aiResponse);
+  const handleCopyResponse = useCallback((message) => {
+    if (message) {
+      navigator.clipboard.writeText(message);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     }
-  }, [aiResponse]);
+  }, []);
 
   return (
     <Dialog
@@ -162,76 +162,48 @@ const ChatModal = ({ isOpen, onClose, prompt }) => {
       onClose={onClose}
       className="fixed inset-0 z-50 overflow-y-auto"
     >
-      <div className="flex items-center justify-center min-h-screen p-4">
-        <div className="fixed inset-0 bg-black opacity-30" />
-        
-        <div className="relative bg-white w-full max-w-4xl rounded-2xl shadow-2xl transform transition-all">
-          {/* Header */}
-          <div className="flex justify-between items-center p-6 border-b">
-            <h2 className="text-xl font-semibold text-gray-800">{prompt.title}</h2>
+      <div className="flex min-h-screen items-center justify-center">
+        <Dialog.Overlay className="fixed inset-0 bg-black opacity-30" />
+        <div className="relative mx-auto max-w-4xl w-full bg-white rounded-lg shadow-xl">
+          <div className="flex justify-between items-center p-4 border-b">
+            <h2 className="text-xl font-semibold">Chat</h2>
             <button
               onClick={onClose}
-              className="rounded-xl p-2 text-gray-500 hover:bg-red-50 hover:text-red-500 
-                transition-all duration-300 hover:shadow-md hover:scale-110"
+              className="p-1 hover:bg-gray-100 rounded-full"
             >
               <XMarkIcon className="h-6 w-6" />
             </button>
           </div>
-
-          {/* Prompt Display */}
-          <div className="p-6 bg-gray-50 border-b">
-            <h3 className="font-medium text-gray-700">Prompt Template:</h3>
-            <p className="mt-1 text-gray-600">{prompt.content}</p>
-          </div>
-
-          {/* Chat Messages */}
-          <div className="h-96 overflow-y-auto p-6 space-y-4">
-            {messages.map((message, index) => (
+          
+          <div className="h-[60vh] overflow-y-auto p-4">
+            {messages.map((msg, index) => (
               <div
                 key={index}
-                className={`flex ${
-                  message.role === 'user' ? 'justify-end' : 'justify-start'
+                className={`mb-4 ${
+                  msg.role === 'user' ? 'text-right' : 'text-left'
                 }`}
               >
                 <div
-                  className={`max-w-3xl p-4 rounded-2xl shadow-md transition-all duration-300 hover:shadow-lg
-                    ${
-                      message.role === 'user'
-                        ? 'bg-blue-600 text-white hover:bg-blue-700'
-                        : 'bg-gray-100 hover:bg-gray-200'
-                    }`}
+                  className={`inline-block max-w-[80%] p-3 rounded-lg ${
+                    msg.role === 'user'
+                      ? 'bg-blue-500 text-white'
+                      : 'bg-gray-100'
+                  }`}
                 >
-                  {message.role === 'assistant' ? (
-                    <ReactMarkdown
-                      className="prose max-w-none"
-                      components={{
-                        code({node, inline, className, children, ...props}) {
-                          return (
-                            <code
-                              className={`${className} rounded-xl bg-gray-800 text-gray-100 p-1`}
-                              {...props}
-                            >
-                              {children}
-                            </code>
-                          );
-                        }
-                      }}
-                    >
-                      {message.content}
-                    </ReactMarkdown>
-                  ) : (
-                    message.content
-                  )}
+                  <div className="relative group">
+                    <ReactMarkdown>{msg.content}</ReactMarkdown>
+                    {msg.role === 'assistant' && (
+                      <button
+                        onClick={() => handleCopyResponse(msg.content)}
+                        className="absolute top-0 right-0 p-1 opacity-0 group-hover:opacity-100 transition-opacity"
+                      >
+                        <ClipboardIcon className="h-4 w-4" />
+                      </button>
+                    )}
+                  </div>
                 </div>
               </div>
             ))}
-            {isLoading && (
-              <div className="flex justify-start">
-                <div className="bg-gray-100 p-4 rounded-2xl shadow-md animate-pulse">
-                  <div className="h-4 w-20 bg-gray-300 rounded-xl" />
-                </div>
-              </div>
-            )}
             <div ref={messagesEndRef} />
           </div>
 
