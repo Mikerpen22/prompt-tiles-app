@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Dialog } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/solid';
 
 const API_BASE_URL = 'http://127.0.0.1:5001';

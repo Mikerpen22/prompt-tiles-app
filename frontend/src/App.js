@@ -79,7 +79,7 @@ function App() {
 
   useEffect(() => {
     fetchPrompts();
-  }, []);
+  }, [fetchPrompts]);
 
   useEffect(() => {
     if (selectedCategory) {

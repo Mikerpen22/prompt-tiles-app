@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { Dialog } from '@headlessui/react';
 import { XMarkIcon, PaperAirplaneIcon } from '@heroicons/react/24/solid';
 import ReactMarkdown from 'react-markdown';
@@ -10,6 +10,7 @@ const ChatModal = ({ isOpen, onClose, prompt }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isFirstMessage, setIsFirstMessage] = useState(true);
   const [chatId, setChatId] = useState(null);
+  const [copied, setCopied] = useState(false);
   const messagesEndRef = useRef(null);
   const textareaRef = useRef(null);
 
@@ -146,6 +147,14 @@ const ChatModal = ({ isOpen, onClose, prompt }) => {
       handleSubmit(e);
     }
   };
+
+  const handleCopyResponse = useCallback(() => {
+    if (aiResponse) {
+      navigator.clipboard.writeText(aiResponse);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }
+  }, [aiResponse]);
 
   return (
     <Dialog
