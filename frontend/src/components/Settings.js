@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { XMarkIcon } from '@heroicons/react/24/solid';
-
-const API_BASE_URL = 'http://127.0.0.1:5001';
+import { API_BASE_URL } from '../config';
 
 const Settings = ({ isOpen, onClose }) => {
   const [apiKey, setApiKey] = useState('');

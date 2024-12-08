@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
+import { API_BASE_URL } from './config';
 import axios from 'axios';
 import { motion } from 'framer-motion';
 import {
@@ -13,14 +14,28 @@ import EditPromptModal from './components/EditPromptModal';
 import Settings from './components/Settings';
 import ChatModal from './components/ChatModal';
 
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:8787';
-
 const api = axios.create({
   baseURL: API_BASE_URL,
+  timeout: 10000, // 10 second timeout
   headers: {
     'Content-Type': 'application/json',
-  },
+  }
 });
+
+// Add response interceptor for error handling
+api.interceptors.response.use(
+  response => response,
+  error => {
+    console.error('API Error:', error);
+    if (error.code === 'ECONNABORTED') {
+      throw new Error('Request timed out. Please try again.');
+    }
+    if (!error.response) {
+      throw new Error('Network error. Please check your connection.');
+    }
+    throw error;
+  }
+);
 
 const categoryVariants = {
   selected: {
@@ -48,10 +63,13 @@ function App() {
   const [categories, setCategories] = useState(new Set(['General']));
   const [allPrompts, setAllPrompts] = useState([]);
 
-  const fetchPrompts = async () => {
+  const fetchPrompts = useCallback(async () => {
     try {
-      const response = await api.get('/prompts');
-      const data = response.data;
+      const response = await fetch(`${API_BASE_URL}/prompts`);
+      if (!response.ok) {
+        throw new Error('Failed to fetch prompts');
+      }
+      const data = await response.json();
       
       // Store all prompts
       setAllPrompts(data);
@@ -73,9 +91,10 @@ function App() {
       }
       setError(null);
     } catch (error) {
-      setError('Failed to fetch prompts');
+      console.error('Error fetching prompts:', error);
+      setError('Error connecting to server. Please make sure the backend is running.');
     }
-  };
+  }, [selectedCategory]);
 
   useEffect(() => {
     fetchPrompts();
