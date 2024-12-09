@@ -1,0 +1,74 @@
+/* Icon hover animations */
+.icon-hover {
+  @apply transition-all duration-200 ease-in-out;
+}
+
+.icon-hover:hover {
+  @apply transform scale-110;
+  filter: brightness(1.2);
+}
+
+/* Action icons (edit, delete, chat) specific hover effects */
+.action-icon {
+  @apply transition-all duration-200 ease-in-out opacity-70;
+}
+
+.action-icon:hover {
+  @apply transform scale-110 opacity-100;
+}
+
+/* Settings and add new icons hover effects */
+.nav-icon {
+  @apply transition-all duration-300 ease-in-out;
+}
+
+.nav-icon:hover {
+  @apply transform scale-110 rotate-12;
+}
+
+/* Close button hover effect */
+.close-icon {
+  @apply transition-all duration-200 ease-in-out;
+}
+
+.close-icon:hover {
+  @apply transform scale-110 rotate-90;
+}
+
+/* Send message icon hover effect */
+.send-icon {
+  @apply transition-all duration-200 ease-in-out;
+}
+
+.send-icon:hover {
+  @apply transform scale-110 translate-x-1;
+}
+
+/* Copy icon hover effect */
+.copy-icon {
+  @apply transition-all duration-200 ease-in-out opacity-70;
+}
+
+.copy-icon:hover {
+  @apply transform scale-110 opacity-100;
+  filter: brightness(1.2);
+}
+
+/* Mobile-specific animations */
+@media (max-width: 640px) {
+  .prompt-card {
+    @apply transform transition-transform duration-200;
+  }
+  
+  .prompt-card:active {
+    @apply scale-95;
+  }
+  
+  .action-icon {
+    @apply opacity-100;
+  }
+  
+  .copy-icon {
+    @apply opacity-90;
+  }
+}

@@ -31,9 +31,25 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'prompts.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
+
+"""
+Migrations make it easier to:
+1. Update database schema without losing data
+2. Track schema changes like version control
+3. Roll back changes if needed
+4. Share schema changes with team
+"""
 migrate = Migrate(app, db)
 
+
+### Define database models
 class UserSession(db.Model):
+    """
+    SQLite does not have built-in DATE, TIME, or DATETIME types
+    and pysqlite does not provide out of the box functionality for translating values between Python datetime objects and a SQLite-supported format.
+    SQLAlchemy’s own DateTime and related types provide date formatting and parsing functionality when SQLite is used. The implementation classes are DATETIME, DATE and TIME.
+    These types represent dates and times as ISO formatted strings, which also nicely support ordering.
+    """
     id = db.Column(db.Integer, primary_key=True)
     session_id = db.Column(db.String(64), unique=True, nullable=False)
     encrypted_api_key = db.Column(db.Text, nullable=False)

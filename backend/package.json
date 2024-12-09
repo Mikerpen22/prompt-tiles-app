@@ -10,8 +10,9 @@
     "init-db": "wrangler d1 execute prompt_tiles_db --local --file=./schema.sql"
   },
   "dependencies": {
-    "hono": "^3.11.7",
+    "@google/generative-ai": "^0.21.0",
     "@hono/zod-validator": "^0.1.11",
+    "hono": "^3.11.7",
     "zod": "^3.22.4"
   },
   "devDependencies": {

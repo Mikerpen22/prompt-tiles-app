@@ -1,9 +1,22 @@
 name = "prompt-tiles-api"
-main = "prompt-tiles-app/backend/src/index.js"
-compatibility_date = "2023-12-07"
+main = "src/index.js"
+compatibility_date = "2023-12-01"
 
 # D1 Database
 [[d1_databases]]
 binding = "DB"
 database_name = "prompt_tiles_db"
 database_id = "e4ead62b-e7e5-463d-a0ab-00e00cfbfe93"
+
+[[kv_namespaces]]
+binding = "SESSIONS_KV"
+id = "6d9c0c810dd246c3a838aa66f61aa628"
+
+[vars]
+SESSION_SECRET = "Cz770UmKR+ScJa0k9s3lnVOW8/EhoYwBNLE8DrIZjV8="
+
+# wrangler.toml (wrangler v3.88.0^)
+[observability.logs]
+enabled = true
+head_sampling_rate = 0.01
+

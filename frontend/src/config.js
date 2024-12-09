@@ -1,5 +1,6 @@
-// Default to production URL, override with environment variable if present
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'https://prompt-tiles-api.minhung-shih.workers.dev';
+// API Configuration
+const API_BASE_URL = 'https://prompt-tiles-api.minhung-shih.workers.dev';
 
-// Export configuration
+console.log('Using API URL:', API_BASE_URL); // Debug logging
+
 export { API_BASE_URL };

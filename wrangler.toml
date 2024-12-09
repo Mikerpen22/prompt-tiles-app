@@ -7,3 +7,8 @@ compatibility_date = "2023-12-07"
 binding = "DB"
 database_name = "prompt_tiles_db"
 database_id = "e4ead62b-e7e5-463d-a0ab-00e00cfbfe93"
+
+# wrangler.toml (wrangler v3.88.0^)
+[observability.logs]
+enabled = true
+head_sampling_rate = 0.01

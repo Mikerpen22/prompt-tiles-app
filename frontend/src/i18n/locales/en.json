@@ -1,0 +1,42 @@
+{
+  "title": "PromptPal",
+  "description": "Your AI Prompt Management Companion",
+  "buttons": {
+    "newPrompt": "New Prompt",
+    "settings": "Settings",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "chat": "Chat"
+  },
+  "prompts": {
+    "title": "Prompts",
+    "noPrompts": "No prompts yet. Create your first one!",
+    "newPrompt": "New Prompt",
+    "editPrompt": "Edit Prompt",
+    "deletePrompt": "Delete Prompt",
+    "promptName": "Prompt Name",
+    "promptContent": "Prompt Content",
+    "deleteConfirm": "Are you sure you want to delete this prompt?"
+  },
+  "settings": {
+    "title": "Settings",
+    "apiKey": "API Key",
+    "apiKeyPlaceholder": "Enter your Gemini API key",
+    "saveSuccess": "Settings saved successfully",
+    "saveError": "Failed to save settings"
+  },
+  "chat": {
+    "placeholder": "Type your message...",
+    "send": "Send",
+    "typing": "AI is typing...",
+    "error": "Error sending message"
+  },
+  "errors": {
+    "general": "Something went wrong",
+    "apiKey": "Please configure your API key in settings",
+    "network": "Network error",
+    "unauthorized": "Unauthorized - Please check your API key"
+  }
+}

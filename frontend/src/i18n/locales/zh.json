@@ -1,0 +1,42 @@
+{
+  "title": "提示助手",
+  "description": "您的AI提示管理伙伴",
+  "buttons": {
+    "newPrompt": "新建提示",
+    "settings": "设置",
+    "save": "保存",
+    "cancel": "取消",
+    "delete": "删除",
+    "edit": "编辑",
+    "chat": "对话"
+  },
+  "prompts": {
+    "title": "提示列表",
+    "noPrompts": "暂无提示。创建您的第一个提示！",
+    "newPrompt": "新建提示",
+    "editPrompt": "编辑提示",
+    "deletePrompt": "删除提示",
+    "promptName": "提示名称",
+    "promptContent": "提示内容",
+    "deleteConfirm": "确定要删除这个提示吗？"
+  },
+  "settings": {
+    "title": "设置",
+    "apiKey": "API密钥",
+    "apiKeyPlaceholder": "输入您的Gemini API密钥",
+    "saveSuccess": "设置保存成功",
+    "saveError": "设置保存失败"
+  },
+  "chat": {
+    "placeholder": "输入您的消息...",
+    "send": "发送",
+    "typing": "AI正在输入...",
+    "error": "发送消息失败"
+  },
+  "errors": {
+    "general": "出现错误",
+    "apiKey": "请在设置中配置您的API密钥",
+    "network": "网络错误",
+    "unauthorized": "未授权 - 请检查您的API密钥"
+  }
+}
